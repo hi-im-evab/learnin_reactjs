@@ -65,6 +65,8 @@ class Game extends React.Component {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
+
+
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -139,15 +141,19 @@ function calculateWinner(squares) {
     [0, 4, 8],
     [2, 4, 6],
   ];
+
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      // Highlight winner
-      squares[a] = <b style={{color: 'red'}}>{squares[a]}</b>;
-      squares[b] = <b style={{color: 'red'}}>{squares[b]}</b>;
-      squares[c] = <b style={{color: 'red'}}>{squares[c]}</b>;
+      // Save winner
+      let winner = squares[a];
 
-      return squares[a];
+      // Highlight winner
+      document.getElementsByClassName('square')[a].style.backgroundColor = 'red';
+      document.getElementsByClassName('square')[b].style.backgroundColor = 'red';
+      document.getElementsByClassName('square')[c].style.backgroundColor = 'red';
+    
+      return winner;
     }
   }
   return null;
